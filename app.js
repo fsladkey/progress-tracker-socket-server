@@ -6,8 +6,12 @@ app.listen(PORT)
 console.log(`listening on ${PORT}`)
 
 function handler(req, res) {
-  res.writeHead(200);
-  console.log('broadcasting update');
-  io.emit('updateAvailable')
-  res.end();
+  if (req.method === "POST") {
+    res.writeHead(200)
+    io.emit('updateAvailable')
+    res.end()
+  } else {
+    res.writeHead(404)
+    res.end()
+  }
 }
