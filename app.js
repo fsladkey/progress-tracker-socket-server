@@ -6,7 +6,7 @@ app.listen(PORT)
 console.log(`listening on ${PORT}`)
 
 function handler(req, res) {
-  if (req.method === "POST") {
+  if (isValid(req)) {
     res.writeHead(200)
     io.emit('updateAvailable')
     res.end()
@@ -14,4 +14,8 @@ function handler(req, res) {
     res.writeHead(404)
     res.end()
   }
+}
+
+function isValid(req) {
+  return req.method === "POST" && req.headers["user-agent"] === "Ruby"
 }
